@@ -25,7 +25,6 @@
       wrapHtmlWithStyle: function (html) { return `<div style="${this.STYLES.WRAPPER}">${html}</div>`; },
       getLinkButton: function (url, text = '🔗 재고 관리 시트 바로가기') { return `<a href="javascript:void(0);" style="${this.STYLES.BUTTON}">${text}</a>`; }
       
-      // ✅ 수정하신 메세지 박스 로직 적용
       getMessageBox: function (title, message) {
         if (!message) return '';
         const formattedMsg = String(message).replace(/\n/g, '<br>');
@@ -60,9 +59,6 @@
           </tr>
           <tr>
             <td style="${Utils.STYLES.TD}">브로슈어</td><td style="${Utils.STYLES.TD}">2026-04-16</td><td style="${Utils.STYLES.TD}"></td><td style="${Utils.STYLES.TD}">200</td><td style="${Utils.STYLES.TD}">2026 공동주택관리산업박람회(벡스코)</td>
-          </tr>
-          <tr>
-            <td style="${Utils.STYLES.TD}">리플릿</td><td style="${Utils.STYLES.TD}">2026-04-06</td><td style="${Utils.STYLES.TD}">2</td><td style="${Utils.STYLES.TD}"></td><td style="${Utils.STYLES.TD}">브랜드실 디자인팀 업무용 2부 보관</td>
           </tr>
         </tbody>
       </table>
