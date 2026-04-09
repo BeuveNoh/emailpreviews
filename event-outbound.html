@@ -23,7 +23,7 @@
         MSG_BOX: `background: #f9f9f9; padding: 15px; border-left: 4px solid #4285f4; margin-bottom: 20px; color: #555; line-height: 1.5;`
       },
       wrapHtmlWithStyle: function (html) { return `<div style="${this.STYLES.WRAPPER}">${html}</div>`; },
-      getLinkButton: function (url, text = '🔗 재고 관리 시트 바로가기') { return `<a href="${url}" target="_blank" style="${this.STYLES.BUTTON}">${text}</a>`; },
+      getLinkButton: function (url, text = '🔗 재고 관리 시트 바로가기') { return `<a href="#" target="_blank" style="${this.STYLES.BUTTON}">${text}</a>`; },
       
       // ✅ 수정하신 메세지 박스 로직 적용
       getMessageBox: function (title, message) {
