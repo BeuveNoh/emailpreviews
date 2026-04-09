@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자동 재고 경고 메일 - 미리보기</title>
+  <style>
+    body { background-color: #f4f5f7; display: flex; justify-content: center; padding: 40px; margin: 0; }
+    #email-container { background: white; width: 100%; max-width: 800px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+  <div id="email-container"></div>
+
+  <script>
+    const Utils = {
+      STYLES: {
+        WRAPPER: `font-family: 'Malgun Gothic', dotum, sans-serif; width: 100%; padding: 30px; box-sizing: border-box; color: #333;`,
+        TABLE: `border-collapse: collapse; width: 100%; font-size: 14px; margin-bottom: 20px;`,
+        TH: `border: 1px solid #ddd; padding: 12px; background-color: #f6f6f6; text-align: left; font-weight: bold; color: #444;`,
+        TD: `border: 1px solid #ddd; padding: 12px;`,
+        BUTTON: `display: inline-block; background-color: #4285f4; color: white; padding: 12px 20px; text-decoration: none; border-radius: 4px; font-weight: bold; font-size: 14px; margin-top: 10px;`
+      },
+      wrapHtmlWithStyle: function (html) { return `<div style="${this.STYLES.WRAPPER}">${html}</div>`; },
+      getLinkButton: function (url, text = '🔗 재고 관리 시트 바로가기') { return `<a href="${url}" target="_blank" style="${this.STYLES.BUTTON}">${text}</a>`; }
+    };
+
+    const THRESHOLD = 200;
+    const item = '리플릿';
+    const dummyUrl = '#';
+
+    const contentHtml = `
+      <h3 style="margin-top: 0;">[${item} 재고 경고]</h3>
+      <table style="${Utils.STYLES.TABLE}">
+        <tbody>
+          <tr><th style="${Utils.STYLES.TH} width: 30%;">현재 재고(부)</th><td style="${Utils.STYLES.TD}">350</td></tr>
+          <tr><th style="${Utils.STYLES.TH}">가용 재고(부)</th><td style="${Utils.STYLES.TD} color: #d32f2f; font-weight: bold;">150</td></tr>
+          <tr><th style="${Utils.STYLES.TH}">예상 소진일</th><td style="${Utils.STYLES.TD}">2026-05-18</td></tr>
+          <tr><th style="${Utils.STYLES.TH}">권장 발주 수량(부)</th><td style="${Utils.STYLES.TD}">500</td></tr>
+        </tbody>
+      </table>
+      <p style="color: #666; font-size: 13px;">
+        ※ <b>가용 재고</b>가 ${THRESHOLD.toLocaleString()}부 미만으로 떨어져 자동 발송된 메일입니다.<br>
+        ※ 향후 잡혀있는 행사 일정(반출 예정)으로 인해 재고 부족이 예상됩니다.
+      </p>
+      ${Utils.getLinkButton(dummyUrl)}
+    `;
+
+    document.getElementById('email-container').innerHTML = Utils.wrapHtmlWithStyle(contentHtml);
+  </script>
+</body>
+</html>

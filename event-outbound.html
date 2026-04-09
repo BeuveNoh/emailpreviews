@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>행사 반출 알림 메일 - 미리보기</title>
+  <style>
+    body { background-color: #f4f5f7; display: flex; justify-content: center; padding: 40px; margin: 0; }
+    #email-container { background: white; width: 100%; max-width: 800px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-radius: 8px; border: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+  <div id="email-container"></div>
+
+  <script>
+    const Utils = {
+      STYLES: {
+        WRAPPER: `font-family: 'Malgun Gothic', dotum, sans-serif; width: 100%; padding: 30px; box-sizing: border-box; color: #333;`,
+        TABLE: `border-collapse: collapse; width: 100%; font-size: 14px; margin-bottom: 20px;`,
+        TH: `border: 1px solid #ddd; padding: 12px; background-color: #f6f6f6; text-align: left; font-weight: bold; color: #444;`,
+        TD: `border: 1px solid #ddd; padding: 12px;`,
+        BUTTON: `display: inline-block; background-color: #4285f4; color: white; padding: 12px 20px; text-decoration: none; border-radius: 4px; font-weight: bold; font-size: 14px; margin-top: 10px;`,
+        MSG_BOX: `background: #f9f9f9; padding: 15px; border-left: 4px solid #4285f4; margin-bottom: 20px; color: #555; line-height: 1.5;`
+      },
+      wrapHtmlWithStyle: function (html) { return `<div style="${this.STYLES.WRAPPER}">${html}</div>`; },
+      getLinkButton: function (url, text = '🔗 재고 관리 시트 바로가기') { return `<a href="${url}" target="_blank" style="${this.STYLES.BUTTON}">${text}</a>`; },
+      
+      // ✅ 수정하신 메세지 박스 로직 적용
+      getMessageBox: function (title, message) {
+        if (!message) return '';
+        const formattedMsg = String(message).replace(/\n/g, '<br>');
+        return `
+          <div style="${this.STYLES.MSG_BOX}">
+            <b style="display:block; margin-bottom:5px; color:#333;">${title}:</b>
+            ${formattedMsg}
+          </div>
+        `;
+      }
+    };
+
+    const dummyUrl = '#';
+    const mockMessage = "다음 달 벡스코에서 진행되는 산업박람회 행사용 기업소개서 반출 예정 내역입니다.\n미리 확인 부탁드립니다.";
+    
+    const contentHtml = `
+      ${Utils.getMessageBox('전달사항', mockMessage)}
+      <h3 style="margin-top: 0;">[행사 반출 알림]</h3>
+      <table style="${Utils.STYLES.TABLE}">
+        <thead>
+          <tr>
+            <th style="${Utils.STYLES.TH}">품목</th>
+            <th style="${Utils.STYLES.TH}">반출일</th>
+            <th style="${Utils.STYLES.TH}">반출량(부)</th>
+            <th style="${Utils.STYLES.TH}">반출 예정량(부)</th>
+            <th style="${Utils.STYLES.TH}">비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="${Utils.STYLES.TD}">리플릿</td><td style="${Utils.STYLES.TD}">2026-04-16</td><td style="${Utils.STYLES.TD}"></td><td style="${Utils.STYLES.TD}">300</td><td style="${Utils.STYLES.TD}">2026 공동주택관리산업박람회(벡스코)</td>
+          </tr>
+          <tr>
+            <td style="${Utils.STYLES.TD}">브로슈어</td><td style="${Utils.STYLES.TD}">2026-04-16</td><td style="${Utils.STYLES.TD}"></td><td style="${Utils.STYLES.TD}">200</td><td style="${Utils.STYLES.TD}">2026 공동주택관리산업박람회(벡스코)</td>
+          </tr>
+          <tr>
+            <td style="${Utils.STYLES.TD}">리플릿</td><td style="${Utils.STYLES.TD}">2026-04-06</td><td style="${Utils.STYLES.TD}">2</td><td style="${Utils.STYLES.TD}"></td><td style="${Utils.STYLES.TD}">브랜드실 디자인팀 업무용 2부 보관</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-size:13px; color:#555; border-top:1px dashed #ccc; padding-top:15px; margin-top: 20px;">
+        <b>[재고 현황]</b>
+        <ul style="margin: 5px 0 15px 0; padding-left: 20px; line-height: 1.6;">
+          <li>리플릿: 현재 808 / <b>가용 508</b></li>
+          <li>브로슈어: 현재 833 / <b>가용 633</b></li>
+        </ul>
+        ${Utils.getLinkButton(dummyUrl)}
+      </div>
+    `;
+
+    document.getElementById('email-container').innerHTML = Utils.wrapHtmlWithStyle(contentHtml);
+  </script>
+</body>
+</html>
